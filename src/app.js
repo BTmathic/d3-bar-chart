@@ -2,7 +2,7 @@ import 'normalize.css/normalize.css';
 import './styles/styles.scss';
 import * as d3 from 'd3';
 
-fetch('GDP-data.json').then(function (response) {
+fetch('https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/GDP-data.json').then(function (response) {
   return response.json();
 }).then(function (data) {
   const gdpData = data.data;
