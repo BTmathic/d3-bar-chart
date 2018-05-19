@@ -2,14 +2,14 @@ import 'normalize.css/normalize.css';
 import './styles/styles.scss';
 import * as d3 from 'd3';
 
-fetch('https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/GDP-data.json').then(function (response) {
+fetch('https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/GDP-data.json').then((response) => {
   return response.json();
-}).then(function (data) {
+}).then((data) => {
   const gdpData = data.data;
   const gdpAmounts = data.data.map((entry) => entry[1]);
   const gdpDates = data.data.map((entry) => entry[0]);
 
-  const margin = { top: 20, right: 20, bottom: 20, left: 50};
+  const margin = { top: 20, right: 20, bottom: 20, left: 75};
   const width = 865 - margin.left - margin.right;
   const height = 450 - margin.top - margin.bottom;
 
@@ -18,7 +18,7 @@ fetch('https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/maste
 
   const barWidth = width / gdpAmounts.length;
 
-  let svg = d3.select('body').append('svg')
+  let svg = d3.select('#container').append('svg')
     .attr('width', width + margin.left + margin.right)
     .attr('height', height + margin.top + margin.bottom)
     .append('g')
@@ -36,7 +36,7 @@ fetch('https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/maste
 
   svg.append('text')
     .attr('transform', 'rotate(-90)')
-    .attr('y', 0 - margin.left)
+    .attr('y', 0 - margin.left + 20)
     .attr('x', 0 - height/2)
     .attr('dy', '0em')
     .style('text-anchor', 'middle')
@@ -61,7 +61,7 @@ fetch('https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/maste
   
   svg.append('g')
     .selectAll('rect')
-    .data(gdpData) // gdpAmounts
+    .data(gdpData)
     .enter()
     .append('rect')
     .attr('fill', 'steelblue')
@@ -90,7 +90,7 @@ fetch('https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/maste
           .style('opacity', 0);
     });
 
-  const description = d3.select('body').append('div')
+  const description = d3.select('#container').append('div')
     .attr('class', 'description')
     .style('max-width', '925px')
     .style('font-size', '12px')
