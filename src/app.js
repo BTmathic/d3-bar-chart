@@ -49,14 +49,15 @@ fetch('https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/maste
 
   function drawGraph() {
     svg.append('g')
-    .attr('transform', `translate(0, ${height})`)
+    .attr('transform', `translate(${margin.left}, ${height})`)
     .call(d3.axisBottom(x).tickFormat((date) => d3.timeFormat('%Y')(date)));
 
   svg.append('g')
+    .attr('transform', `translate(${margin.left}, 0)`)
     .call(d3.axisLeft(y));
 
   svg.append('text')
-    .attr('transform', 'rotate(-90)')
+    .attr('transform', `rotate(-90) translate(${margin.left}, 0)`)
     .attr('y', 0 - margin.left + 20)
     .attr('x', 0 - height/2)
     .attr('dy', '0em')
@@ -71,7 +72,10 @@ fetch('https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/maste
     .attr('fill', 'steelblue')
     .attr('width', barWidth)
     .attr('height', (d) => height*d[1] / d3.max(gdpAmounts, (amount) => amount))
-    .attr('transform', (d, i) => 'translate(' + i * barWidth + ',' + height + ')' + 'scale(1, -1)')
+    .attr('transform', (d, i) => {
+      const pad = margin.left + i*barWidth;
+      return 'translate(' + pad + ',' + height + ') ' + 'scale(1, -1)'
+    })
     .on('mouseover', (d) => mouseover(d))
     .on('mouseout', mouseout);
 
