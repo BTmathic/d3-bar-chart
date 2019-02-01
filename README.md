@@ -16,6 +16,6 @@ Using Federal Reserve econimic data we display the quarterly GDP amounts for the
 
 ### Build Tools
 
-* Webpack
+* Parcel
 * Yarn
 * Babel
